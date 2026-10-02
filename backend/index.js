@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser') //help to read data coming from request and send data in response 
 const http = require("http");
 const {Server} = require("socket.io");
+const mainRouter = require("./routes/mainRouter.js")
+
 
 dotenv.config(); // will enable in process
 
@@ -67,9 +69,7 @@ function startServer() {
     
         app.use(cors({ origin:"*" }));
 
-        app.get("/test", (req, res) => {
-            res.send("Welcome!");
-        });
+        app.use("/", mainRouter);
 
         let user = "demo" //temporary user
 
