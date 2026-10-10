@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const IssueSchema = new Schema ({
+    Timestamps: true,
     title: {
         type: String,
         requied: true, 

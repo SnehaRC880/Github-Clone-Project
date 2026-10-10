@@ -51,7 +51,7 @@ async function signup (req, res) {
         //if user is successfully created then new token is generated
         const token = jwt.sign({id: result.insertId}, process.env.JWT_SECRET_KEY, {expiresIn: "1h"})  //expires in one hour
 
-        res.json({token});
+        res.json({token, userId: result.insertId});
 
     } catch(err) {
        console.error("Error during signup: ", err.message);
@@ -79,7 +79,7 @@ async function login (req, res)  {
       const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
       res.json({token, userId: user._id});  //token and user id is return
     }  catch (err) {
-        console.err("Error during login: ", err);
+        console.error("Error during login: ", err);
         res.status(500).send("Server Error!");
     }
 }

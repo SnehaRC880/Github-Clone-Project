@@ -1,7 +1,9 @@
+const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const RepositorySchema = new Schema ({
+    Timestamps: true,          //add two fields every insertion deletion(created at and updated at)
     name: {
         type: String,
         required: true,

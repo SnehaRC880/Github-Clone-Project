@@ -49,7 +49,7 @@ async function getAllRepositories (req, res) {   //general or public functionali
 }
 
 async function fetchRepositoryById (req, res) {
-   const { id } = req.params;
+   const { id } = req.params;   //repo id
  
    try {
 
@@ -83,23 +83,28 @@ async function fetchRepositoryByName (req, res) {
 }
 
 async function fetchRepositoriesForCurrentUser (req, res) {     //below all functions can be access only wen user loggedin
-    const userId = req.user;    //if user is logges in then its id and token will be return which be there in req.user
+   
+   console.log(req.params);
+   const { userId } = req.params;    //if user is logges in then its id and token will be return which be there in req.user
     
     try {
 
-     const repositories = await Repository.find({ owner: userId});  
-     
+     const repositories = await Repository.find({ owner: userId });  
+
+
      if(!repositories || repositories.length == 0) {
-        return res.status(404).json({error: "User Repository not found"});
+        return res.status(404).json({error: "User Repositories not found!"});
      }
 
+     console.log("repositories : ",repositories);
      res.json({message: "Repositories found!", repositories});
 
     } catch(err) {
-        console.error("error during fetching user repository =  ", err);
+        console.error("error during fetching user repository =  ", err.message);
         res.status(500).send("Server error");
    }
 }
+
 
 async function updateRepositoryById (req, res)  {
    const {id} = req.params;
